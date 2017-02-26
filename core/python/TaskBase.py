@@ -8,7 +8,7 @@ import abc
 import logging
 logger = logging.getLogger( __name__ )
 
-class Task:
+class TaskBase:
     __metaclass__ = abc.ABCMeta
 
     def __init__( self, name, requires = None ):
