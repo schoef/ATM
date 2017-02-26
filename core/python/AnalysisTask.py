@@ -24,8 +24,8 @@ class AnalysisTask( TaskBase ):
 
 if __name__ == "__main__":
 
-    import logger as logger
-    logger = logger.get_logger('DEBUG')
+    from ATM.core.logger import get_logger
+    logger = get_logger('DEBUG')
 
     # 1st simple task
     def simpleCalculation1( base ):
