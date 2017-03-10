@@ -1,6 +1,8 @@
+''' Class to hold grid proxy certificate
+'''
 
-import helpers
-from Task import Task
+import  ATM.core.helpers    as helpers
+from    ATM.core.Task       import Task
 
 class ProxyCertificate( Task ):
     ''' Task to hold the grid proxy certificate
@@ -8,7 +10,6 @@ class ProxyCertificate( Task ):
 
     # https://blog.ionelmc.ro/2015/02/09/understanding-python-metaclasses/
 
-    import helpers
     __metaclass__ = type( 'ProxyCertificateMeta', (type(Task), helpers.Singleton), {} )
 
     filename = 'default'

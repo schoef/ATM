@@ -1,40 +1,35 @@
-'''
-CrabTask class. 
-'''
+from ATM.core.Task              import Task
+from ATM.crab.ProxyCertificate  import ProxyCertificate
 
-# ATM
-from ATM.core.standard import *
+class HeppySampleTask( Task ):
+    ''' Task to handle a grid job 
+    '''
 
-# Logging
-import logging
-logger = logging.getLogger( __name__ )
+    db_file = None
 
-class CrabTask( TaskBase ):
+    def __init__ ( self, heppy_sample_name ):
+        super( HeppySampleTask, self ).__init__( '%s'%( heppy_sample_name ) )
+        self.heppy_sample_name = heppy_sample_name
+        self.cache = {}
 
-    def __init__( self, name, dataset ):
-        super(CrabTask, self).__init__( name ) 
-        self.dataset = dataset
+    def result_from_cache( self ):
+        return self.cache[ self.heppy_sample_name ]
 
-#        self.requires = [
-#            CrabSubmitTask( dataset ),
-#            CrabResubmitTask( dataset ),
-#            #CrabResubmitTask( dataset ),
-#
-#        ]
+    @property
+    def requires( self ):
+        return { 'proxy': ProxyCertificate() }
+        
+    @property
+    def result( self ):
+        try:
+            return self.result_from_cache()
+        except KeyError:
 
-    def _evaluate( self ):
-        logger.info( " CrabTask %r dataset %r", self.name, self.dataset )
-        #result = self._function( self )
-        result = 0
-        return result
+            import uuid
+            self.cache[self.heppy_sample_name] = str(uuid.uuid4()) 
 
-if __name__ == "__main__":
+            return self.result 
 
-    from ATM.core.logger import get_logger
-    logger = get_logger('DEBUG')
-   
-    dataset = '/DoubleMuon/Run2016D-03Feb2017-v1/MINIAOD' 
-
-    task = CrabTask('DoubleMu-03Feb2017', dataset )
-
-    logger.info( "Task %r has result %r", task.name, task.result() )
+heppy_sample_name = 'TTJets_NNNNNNLO'
+s = HeppySampleTask( heppy_sample_name )
+print s

@@ -3,11 +3,9 @@ Logging for ATM - Analysis Task Manager
 '''
 
 import logging
-
 import sys
-
 def get_logger(logLevel, logFile = None):
-    ''' Logger for post-processing module.
+    ''' Logger for ATM.
     
     '''
 
