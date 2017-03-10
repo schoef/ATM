@@ -11,10 +11,10 @@ logger = logging.getLogger( __name__ )
 class TaskBase:
     __metaclass__ = abc.ABCMeta
 
-    def __init__( self, name, requires = None ):
+    def __init__( self, name ):
 
         self.name       = name
-        self.requires   = requires
+        self.requires   = None
 
         return
 

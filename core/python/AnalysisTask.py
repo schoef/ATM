@@ -11,9 +11,11 @@ logger = logging.getLogger( __name__ )
 
 class AnalysisTask( TaskBase ):
 
-    def __init__( self, name, function, requires = None):
+    def __init__( self, name, function, requires = None ):
         #super(AnalysisTask, self).__init__( name, requires) #That creates an infinite recursion because the retry decorator makes a new class
-        TaskBase.__init__( self, name, requires)
+        TaskBase.__init__( self, name )
+
+        self.requires  = requires
         self._function = function
 
     def _evaluate( self ):
